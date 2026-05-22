@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 MT Republican Primary Predictions</title>
+<style>
+  :root {
+    --navy: #1F3864;
+    --orange: #C9531E;
+    --bg: #f7f5f0;
+    --card: #ffffff;
+    --border: #d8d4cc;
+    --text: #1a1a1a;
+    --muted: #666;
+    --bar: #1F3864;
+    --highlight: #FFF4E5;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.4;
+  }
+  header {
+    background: var(--navy);
+    color: white;
+    padding: 24px 20px;
+    text-align: center;
+  }
+  header h1 { margin: 0 0 6px; font-size: 22px; }
+  header p { margin: 0; font-size: 14px; opacity: 0.9; }
+  .container { max-width: 700px; margin: 0 auto; padding: 16px; }
+  .intro {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    font-size: 14px;
+  }
+  .intro p { margin: 6px 0; }
+  .intro strong { color: var(--navy); }
+  .name-block {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  .name-block label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--navy);
+  }
+  .name-block input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+  .race {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    margin-bottom: 12px;
+  }
+  .race-title {
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 10px;
+    font-size: 15px;
+  }
+  .candidate {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    background: white;
+  }
+  .candidate:hover { background: #fafafa; }
+  .candidate.selected {
+    background: var(--highlight);
+    border-color: var(--orange);
+  }
+  .candidate input[type="radio"] {
+    margin: 0 10px 0 0;
+    accent-color: var(--orange);
+  }
+  .candidate-name { flex: 1; font-size: 15px; }
+  .candidate-stats {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 600;
+    min-width: 60px;
+    text-align: right;
+  }
+  .bar-row {
+    display: flex;
+    align-items: center;
+    margin-top: 4px;
+    gap: 8px;
+  }
+  .bar-container {
+    flex: 1;
+    height: 6px;
+    background: #eee;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    background: var(--bar);
+    transition: width 0.4s ease;
+  }
+  .submit-bar {
+    position: sticky;
+    bottom: 0;
+    background: var(--bg);
+    padding: 12px 0;
+    margin: 0 -16px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-top: 1px solid var(--border);
+  }
+  button.submit-btn {
+    width: 100%;
+    padding: 16px;
+    font-size: 17px;
+    font-weight: 700;
+    background: var(--orange);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  button.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  button.submit-btn:active { transform: scale(0.98); }
+  .results-summary {
+    background: var(--navy);
+    color: white;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .results-summary h2 { margin: 0 0 4px; font-size: 32px; }
+  .results-summary p { margin: 0; font-size: 14px; opacity: 0.9; }
+  .toast {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--navy);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 100;
+  }
+  .toast.show { opacity: 1; }
+  .loading {
+    text-align: center;
+    padding: 40px;
+    color: var(--muted);
+  }
+  .winner-tag {
+    display: inline-block;
+    background: var(--orange);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .admin-link {
+    display: block;
+    text-align: center;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    color: var(--muted);
+    font-size: 13px;
+    text-decoration: none;
+  }
+  .admin-link:hover { color: var(--navy); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>2026 MT Republican Primary</h1>
+  <p>Group predictions — June 2, 2026</p>
+</header>
+
+<div class="container">
+  <div class="intro">
+    <p><strong>How this works:</strong> Pick who you think wins each race. As people submit, you'll see the running tally update for everyone. Skip races you don't know.</p>
+    <p>Predictions are public — anyone with this link can see everyone's picks.</p>
+  </div>
+
+  <div class="results-summary" id="summary">
+    <h2 id="totalCount">—</h2>
+    <p>predictions submitted</p>
+  </div>
+
+  <div class="name-block">
+    <label for="nameInput">Your name <span style="color:var(--orange);">*required</span></label>
+    <input type="text" id="nameInput" placeholder="Type your name..." oninput="updateSubmitState()">
+  </div>
+
+  <div id="races" class="loading">Loading races and current totals...</div>
+
+  <a href="#" class="admin-link" id="viewAllLink" onclick="toggleViewAll(event)">View all individual submissions ↓</a>
+  <div id="viewAllPanel" style="display:none;background:white;border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:24px;font-size:13px;"></div>
+
+  <div class="submit-bar">
+    <button class="submit-btn" id="submitBtn" onclick="submitPredictions()">Submit My Predictions</button>
+  </div>
+</div>
+
+<div class="toast" id="toast">Saved!</div>
+
+<script>
+// ============ SUPABASE CONFIG ============
+const SUPABASE_URL = 'https://qjhuoldqawqzebdnedxn.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_h2sodNBm433iZqN2LgAJqQ_fWoWwC7j';
+const TABLE = 'predictions';
+// =========================================
+
+const RACES = [
+  ["sd1",  "SD 1 (Eureka / Libby)", ["Steve Gunderson", "Vincent Backen", "Neil Duram"]],
+  ["hd3",  "HD 3 (Columbia Falls / Whitefish)", ["Cathy Mitchell", "Derek Peachy"]],
+  ["hd4",  "HD 4 (Columbia Falls / Whitefish)", ["Lyn Bennett", "Nathan Purdy", "Shaun Pandina"]],
+  ["hd6",  "HD 6 (Flathead, N of Kalispell)", ["Jim Riley", "Arthur Dunn"]],
+  ["hd7",  "HD 7 (Kalispell)", ["Courtenay Sprunger", "Luke Maxwell"]],
+  ["hd13", "HD 13 (Polson)", ["Linda Reksten", "Finley Warden"]],
+  ["sd8",  "SD 8 (S. Glacier / Browning)", ["Christopher Buckles", "Ralph Foster"]],
+  ["sd9",  "SD 9 (Pondera / Teton)", ["Llew Jones", "Zach Wirth"]],
+  ["hd17", "HD 17 (Choteau / Fairfield)", ["Justin Cleveland", "Susan Giese", "Michael Fasbender"]],
+  ["sd10", "SD 10 (Great Falls central)", ["Jessica Dyrdahl", "Maximus Dascoulias"]],
+  ["hd19", "HD 19 (Central Great Falls)", ["Hannah Trebas", "Darren Auger"]],
+  ["hd20", "HD 20 (East Great Falls)", ["Anthony Rosales", "Melissa Nikolakakos"]],
+  ["sd11", "SD 11 (Great Falls)", ["Steve Galloway", "Ed Buttrey"]],
+  ["hd21", "HD 21 (Black Eagle)", ["Trevor Funseth", "Eric Peterson"]],
+  ["hd22", "HD 22 (Malmstrom)", ["Kevin Leatherbarrow", "Jason Lorang"]],
+  ["sd12", "SD 12 (NE Great Falls / Black Eagle)", ["George Nikolakakos", "Randy Pinocci"]],
+  ["hd23", "HD 23 (Gibson Flats / SE Great Falls)", ["Eric Tilleman", "Brett Mills"]],
+  ["sd14", "SD 14 (Hi-Line)", ["Mark Wicks", "Eric Albus"]],
+  ["hd28", "HD 28 (Liberty / Hill / Blaine / Phillips)", ["John South", "Chisholm Christensen"]],
+  ["hd29", "HD 29 (NE MT — Daniels / Sheridan / Roosevelt / Valley)", ["Linda Harmon", "Valerie Moore"]],
+  ["hd33", "HD 33 (Dawson Co / Savage)", ["Ric Holden", "Brandon Ler"]],
+  ["hd34", "HD 34 (Eastern MT)", ["Jerry Schillinger", "Jason Ellsworth"]],
+  ["sd18", "SD 18 (Miles City / Forsyth / Colstrip)", ["Greg Kmetz", "Doug Martens"]],
+  ["hd36", "HD 36 (Miles City)", ["Ty Linger", "Loren Hinebauch"]],
+  ["sd19", "SD 19 (Lewistown / Roundup)", ["Barry Usher", "Chris Rindal"]],
+  ["hd40", "HD 40 (Lockwood)", ["Mike Vinton", "Gunner Cesnik"]],
+  ["hd47", "HD 47 (SE Side Billings)", ["John Maxwell", "Rony Stevens"]],
+  ["hd49", "HD 49 (Center-West Billings)", ["Charlie Loveridge", "Ole Hedstrom"]],
+  ["hd51", "HD 51 (North Billings)", ["Jodee Etchart", "Lana Tibbitts"]],
+  ["hd52", "HD 52 (North Billings / Yellowstone Co)", ["Stacy Zinn", "Ed Walker"]],
+  ["hd53", "HD 53 (N Laurel / Hesper / West Billings)", ["Nelly Nicol", "Troy Charbonneau"]],
+  ["hd55", "HD 55 (Red Lodge / Joliet / Bridger)", ["Brad Barker", "Mary Horman"]],
+  ["sd34", "SD 34 (Belgrade / Gallatin Co)", ["Shelley Vance", "Caleb Hinkle"]],
+  ["hd67", "HD 67 (N Belgrade)", ["Jedediah Hinkle", "Russ Nelson"]],
+  ["hd68", "HD 68 (Churchill / S Belgrade)", ["Jennifer Carlson", "Randy Chamberlain"]],
+  ["hd69", "HD 69 (Madison Co / Twin Bridges / Three Forks)", ["Ken Walsh", "Trevor Walter"]],
+  ["hd76", "HD 76 (Granite / Powell — Phillipsburg)", ["John Fitzpatrick", "Trish Schreiber"]],
+  ["sd42", "SD 42 (Helena Valley)", ["Nick Lancette", "Stephen LaPraim", "Mike Talia"]],
+  ["hd84", "HD 84 (Helena Valley)", ["Roy Caldwell", "James Marshall"]],
+  ["sd43", "SD 43 (Bitterroot / Ravalli Co)", ["David Bedey", "Kathy Love"]],
+  ["hd85", "HD 85 (Darby / Ravalli Co)", ["Michele Binkley", "Kim Dailey"]],
+  ["hd86", "HD 86 (Hamilton)", ["Wayne Rusk", "Kenneth Allen"]],
+  ["hd90", "HD 90 (Superior / Mineral Co)", ["Curtis Cochran", "Jeff Stanek"]],
+];
+
+let myPicks = {};
+let allSubmissions = [];
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+async function fetchSubmissions() {
+  const url = `${SUPABASE_URL}/rest/v1/${TABLE}?select=*&order=submitted_at.desc`;
+  const res = await fetch(url, {
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`
+    }
+  });
+  if (!res.ok) throw new Error('Fetch failed: ' + res.status);
+  allSubmissions = await res.json();
+}
+
+function computeTallies() {
+  const tallies = {};
+  allSubmissions.forEach(sub => {
+    const picks = sub.picks || {};
+    Object.entries(picks).forEach(([raceId, candidate]) => {
+      if (candidate === '__skip__') return;
+      if (!tallies[raceId]) tallies[raceId] = {};
+      tallies[raceId][candidate] = (tallies[raceId][candidate] || 0) + 1;
+    });
+  });
+  return tallies;
+}
+
+function renderRaces() {
+  const tallies = computeTallies();
+  const container = document.getElementById('races');
+  container.classList.remove('loading');
+  container.innerHTML = '';
+
+  RACES.forEach(([id, title, candidates], idx) => {
+    const tally = tallies[id] || {};
+    const totalVotes = Object.values(tally).reduce((a,b) => a+b, 0);
+    let maxVotes = 0, leader = null;
+    candidates.forEach(c => {
+      if ((tally[c] || 0) > maxVotes) {
+        maxVotes = tally[c];
+        leader = c;
+      }
+    });
+
+    const raceDiv = document.createElement('div');
+    raceDiv.className = 'race';
+    let html = `<div class="race-title">${idx + 1}. ${title}</div>`;
+    candidates.forEach(c => {
+      const votes = tally[c] || 0;
+      const pct = totalVotes > 0 ? Math.round((votes / totalVotes) * 100) : 0;
+      const isLeader = c === leader && votes > 0;
+      html += `
+        <label class="candidate" data-race="${id}" data-candidate="${c.replace(/"/g, '&quot;')}">
+          <input type="radio" name="${id}" value="${c.replace(/"/g, '&quot;')}">
+          <div style="flex:1;">
+            <div style="display:flex;align-items:center;">
+              <span class="candidate-name">${c}${isLeader ? '<span class="winner-tag">LEADING</span>' : ''}</span>
+              <span class="candidate-stats">${votes} (${pct}%)</span>
+            </div>
+            <div class="bar-row">
+              <div class="bar-container"><div class="bar-fill" style="width:${pct}%"></div></div>
+            </div>
+          </div>
+        </label>
+      `;
+    });
+    html += `
+      <label class="candidate" data-race="${id}" data-candidate="__skip__" style="opacity:0.7;">
+        <input type="radio" name="${id}" value="__skip__">
+        <span class="candidate-name" style="font-style:italic;">Don't know / skip</span>
+      </label>
+    `;
+    raceDiv.innerHTML = html;
+    container.appendChild(raceDiv);
+  });
+
+  document.querySelectorAll('.candidate input[type="radio"]').forEach(input => {
+    input.addEventListener('change', (e) => {
+      const label = e.target.closest('.candidate');
+      const raceId = label.dataset.race;
+      const candidate = label.dataset.candidate;
+      document.querySelectorAll(`.candidate[data-race="${raceId}"]`).forEach(el => el.classList.remove('selected'));
+      label.classList.add('selected');
+      myPicks[raceId] = candidate;
+    });
+  });
+}
+
+function updateSummary() {
+  document.getElementById('totalCount').textContent = allSubmissions.length;
+}
+
+function toggleViewAll(e) {
+  if (e) e.preventDefault();
+  const panel = document.getElementById('viewAllPanel');
+  const link = document.getElementById('viewAllLink');
+  if (panel.style.display === 'none') {
+    panel.style.display = 'block';
+    link.textContent = 'Hide individual submissions ↑';
+    renderIndividualSubmissions();
+  } else {
+    panel.style.display = 'none';
+    link.textContent = 'View all individual submissions ↓';
+  }
+}
+
+function renderIndividualSubmissions() {
+  const panel = document.getElementById('viewAllPanel');
+  if (allSubmissions.length === 0) {
+    panel.innerHTML = '<p style="color:#666;">No submissions yet.</p>';
+    return;
+  }
+  const raceNames = {};
+  RACES.forEach(([id, title]) => raceNames[id] = title.split(' (')[0]);
+  let html = '<table style="width:100%;border-collapse:collapse;font-size:12px;"><thead><tr style="background:#f0f0f0;"><th style="text-align:left;padding:6px;border-bottom:1px solid #ddd;">Name</th><th style="text-align:left;padding:6px;border-bottom:1px solid #ddd;">When</th><th style="text-align:left;padding:6px;border-bottom:1px solid #ddd;">Picks (race: candidate)</th></tr></thead><tbody>';
+  allSubmissions.forEach(sub => {
+    const date = new Date(sub.submitted_at);
+    const when = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+    const picks = sub.picks || {};
+    const pickList = Object.entries(picks)
+      .filter(([_, c]) => c !== '__skip__')
+      .map(([rid, c]) => `<strong>${raceNames[rid] || rid}</strong>: ${c}`)
+      .join('<br>');
+    html += `<tr style="border-bottom:1px solid #eee;vertical-align:top;">
+      <td style="padding:6px;font-weight:600;">${sub.name || 'Anonymous'}</td>
+      <td style="padding:6px;color:#666;white-space:nowrap;">${when}</td>
+      <td style="padding:6px;">${pickList}</td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+  panel.innerHTML = html;
+}
+
+function updateSubmitState() {
+  const name = document.getElementById('nameInput').value.trim();
+  const btn = document.getElementById('submitBtn');
+  if (name.length === 0) {
+    btn.disabled = true;
+    btn.textContent = 'Enter your name above to submit';
+  } else {
+    btn.disabled = false;
+    btn.textContent = 'Submit My Predictions';
+  }
+}
+
+async function submitPredictions() {
+  const name = document.getElementById('nameInput').value.trim();
+  if (!name) {
+    showToast('Please enter your name first');
+    return;
+  }
+  const pickCount = Object.values(myPicks).filter(v => v !== '__skip__').length;
+  if (pickCount === 0) {
+    showToast('Pick at least one race first');
+    return;
+  }
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ name: name, picks: myPicks })
+    });
+    if (!res.ok) {
+      const t = await res.text();
+      throw new Error('Save failed: ' + res.status + ' ' + t);
+    }
+    showToast(`Saved! Thanks, ${name}`);
+    myPicks = {};
+    document.getElementById('nameInput').value = '';
+    await fetchSubmissions();
+    renderRaces();
+    updateSummary();
+    if (document.getElementById('viewAllPanel').style.display !== 'none') {
+      renderIndividualSubmissions();
+    }
+    btn.textContent = 'Submit Again (for someone else)';
+    btn.disabled = false;
+    updateSubmitState();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch (e) {
+    console.error(e);
+    showToast('Save failed — try again');
+    btn.disabled = false;
+    btn.textContent = 'Submit My Predictions';
+  }
+}
+
+async function init() {
+  try {
+    await fetchSubmissions();
+    renderRaces();
+    updateSummary();
+    updateSubmitState();
+  } catch (e) {
+    console.error(e);
+    document.getElementById('races').innerHTML =
+      '<p style="color:#b30000;text-align:center;">Could not load. Check Supabase config or refresh.</p>';
+  }
+}
+
+init();
+</script>
+
+</body>
+</html>
